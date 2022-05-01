@@ -10,12 +10,12 @@ if (process.env.LOAD_ENV) {
     path: path.join(__dirname, '../.env'),
   });
 }
-const DEFAULT_CLIENT_ID = 'dummy-acme-client-id';
-const DEFAULT_CLIENT_SECRET = 'dummy-acme-client-secret';
+const DEFAULT_ACCESS_KEY = 'dummy-acme-client-id';
+const DEFAULT_SECRET_KEY = 'dummy-acme-client-secret';
 
 export const integrationConfig: IntegrationConfig = {
-  clientId: process.env.CLIENT_ID || DEFAULT_CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET || DEFAULT_CLIENT_SECRET,
+  accessKey: process.env.ACCESS_KEY || DEFAULT_ACCESS_KEY,
+  secretKey: process.env.SECRET_KEY || DEFAULT_SECRET_KEY,
 };
 
 export function buildStepTestConfigForStep(stepId: string): StepTestConfig {

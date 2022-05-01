@@ -1,120 +1,179 @@
-import http from 'http';
-
-import { IntegrationProviderAuthenticationError } from '@jupiterone/integration-sdk-core';
+import Escher from 'escher-auth';
+import fetch, { Response } from 'node-fetch';
+import {
+  IntegrationProviderAPIError,
+  IntegrationProviderAuthenticationError,
+} from '@jupiterone/integration-sdk-core';
+import { retry } from '@lifeomic/attempt';
 
 import { IntegrationConfig } from './config';
-import { AcmeUser, AcmeGroup } from './types';
+import {
+  CiscoSecureApplicationAccount,
+  CiscoSecureApplicationCluster,
+  CiscoSecureApplicationImage,
+  CiscoSecureApplicationRisk,
+  CiscoSecureApplicationTelemetry,
+  CiscoSecureApplicationUser,
+  CiscoSecureApplicationVulnerability,
+} from './types';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
-/**
- * An APIClient maintains authentication state and provides an interface to
- * third party data APIs.
- *
- * It is recommended that integrations wrap provider data APIs to provide a
- * place to handle error responses and implement common patterns for iterating
- * resources.
- */
 export class APIClient {
   constructor(readonly config: IntegrationConfig) {}
+  private host = 'securecn.cisco.com';
+  private baseUri = `https://${this.host}/api`;
+  private credentialScope = 'global/services/portshift_request';
+  private withBaseUri = (path: string) => `${this.baseUri}/${path}`;
+  private escher = new Escher({
+    credentialScope: this.credentialScope,
+    accessKeyId: this.config.accessKey,
+    apiSecret: this.config.secretKey,
+  });
 
-  public async verifyAuthentication(): Promise<void> {
-    // TODO make the most light-weight request possible to validate
-    // authentication works with the provided credentials, throw an err if
-    // authentication fails
-    const request = new Promise<void>((resolve, reject) => {
-      http.get(
-        {
-          hostname: 'localhost',
-          port: 443,
-          path: '/api/v1/some/endpoint?limit=1',
-          agent: false,
-          timeout: 10,
+  private getDate(): string {
+    const date = new Date().toISOString().replace(/[^0-9a-zA-Z]+/g, '');
+    return date.slice(0, 15) + date.slice(18);
+  }
+  private checkStatus = (response: Response) => {
+    if (response.ok) {
+      return response;
+    } else {
+      throw new IntegrationProviderAPIError(response);
+    }
+  };
+
+  private async request(path: string, method?: 'GET'): Promise<Response> {
+    try {
+      const options = {
+        host: this.host,
+        port: 443,
+        method: 'GET',
+        url: `/api/${path}`,
+        headers: [
+          ['X-Escher-Date', this.getDate()],
+          ['host', this.host],
+          ['content-type', 'application/json'],
+        ],
+      };
+
+      const signedRequest = this.escher.signRequest(options, '');
+
+      // Handle rate-limiting
+      const response = await retry(
+        async () => {
+          const res: Response = await fetch(
+            this.withBaseUri(path),
+            signedRequest,
+          );
+          this.checkStatus(res);
+          return res;
         },
-        (res) => {
-          if (res.statusCode !== 200) {
-            reject(new Error('Provider authentication failed'));
-          } else {
-            resolve();
-          }
+        {
+          delay: 5000,
+          maxAttempts: 10,
+          handleError: (err, context) => {
+            if (
+              err.statusCode !== 429 ||
+              ([500, 502, 503].includes(err.statusCode) &&
+                context.attemptNum > 1)
+            )
+              context.abort();
+          },
         },
       );
-    });
-
-    try {
-      await request;
+      return response.json();
     } catch (err) {
-      throw new IntegrationProviderAuthenticationError({
-        cause: err,
-        endpoint: 'https://localhost/api/v1/some/endpoint?limit=1',
+      throw new IntegrationProviderAPIError({
+        endpoint: this.withBaseUri(path),
         status: err.status,
         statusText: err.statusText,
       });
     }
   }
 
-  /**
-   * Iterates each user resource in the provider.
-   *
-   * @param iteratee receives each resource to produce entities/relationships
-   */
-  public async iterateUsers(
-    iteratee: ResourceIteratee<AcmeUser>,
-  ): Promise<void> {
-    // TODO paginate an endpoint, invoke the iteratee with each record in the
-    // page
-    //
-    // The provider API will hopefully support pagination. Functions like this
-    // should maintain pagination state, and for each page, for each record in
-    // the page, invoke the `ResourceIteratee`. This will encourage a pattern
-    // where each resource is processed and dropped from memory.
+  public async verifyAuthentication(): Promise<void> {
+    try {
+      await this.request('me');
+    } catch (err) {
+      throw new IntegrationProviderAuthenticationError({
+        cause: err,
+        endpoint: this.withBaseUri('me'),
+        status: err.status,
+        statusText: err.statusText,
+      });
+    }
+  }
 
-    const users: AcmeUser[] = [
-      {
-        id: 'acme-user-1',
-        name: 'User One',
-      },
-      {
-        id: 'acme-user-2',
-        name: 'User Two',
-      },
-    ];
+  public async getCurrentUser(): Promise<CiscoSecureApplicationAccount> {
+    return this.request('me');
+  }
+
+  public async iterateUsers(
+    iteratee: ResourceIteratee<CiscoSecureApplicationUser>,
+  ): Promise<void> {
+    const users = await this.request('users');
 
     for (const user of users) {
       await iteratee(user);
     }
   }
 
-  /**
-   * Iterates each group resource in the provider.
-   *
-   * @param iteratee receives each resource to produce entities/relationships
-   */
-  public async iterateGroups(
-    iteratee: ResourceIteratee<AcmeGroup>,
+  public async iterateClusters(
+    iteratee: ResourceIteratee<CiscoSecureApplicationCluster>,
   ): Promise<void> {
-    // TODO paginate an endpoint, invoke the iteratee with each record in the
-    // page
-    //
-    // The provider API will hopefully support pagination. Functions like this
-    // should maintain pagination state, and for each page, for each record in
-    // the page, invoke the `ResourceIteratee`. This will encourage a pattern
-    // where each resource is processed and dropped from memory.
+    const clusters = await this.request('kubernetesClusters');
 
-    const groups: AcmeGroup[] = [
-      {
-        id: 'acme-group-1',
-        name: 'Group One',
-        users: [
-          {
-            id: 'acme-user-1',
-          },
-        ],
-      },
-    ];
+    for (const cluster of clusters) {
+      await iteratee(cluster);
+    }
+  }
 
-    for (const group of groups) {
-      await iteratee(group);
+  public async iterateImages(
+    iteratee: ResourceIteratee<CiscoSecureApplicationImage>,
+  ): Promise<void> {
+    const images = await this.request('images');
+
+    for (const image of images) {
+      await iteratee(image);
+    }
+  }
+
+  public async iterateVulnerabilities(
+    imageId: string,
+    iteratee: ResourceIteratee<CiscoSecureApplicationVulnerability>,
+  ): Promise<void> {
+    const vulnerabilities = await this.request(
+      `images/${imageId}/vulnerabilities`,
+    );
+
+    for (const vulnerability of vulnerabilities) {
+      await iteratee(vulnerability);
+    }
+  }
+
+  public async iterateRisks(
+    iteratee: ResourceIteratee<CiscoSecureApplicationRisk>,
+  ): Promise<void> {
+    const risks = await this.request('riskAssessment');
+
+    for (const risk of risks) {
+      await iteratee(risk);
+    }
+  }
+
+  public async iterateTelemetries(
+    iteratee: ResourceIteratee<CiscoSecureApplicationTelemetry>,
+  ): Promise<void> {
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 1);
+
+    const telemetries: CiscoSecureApplicationTelemetry[] = await this.request(
+      `appTelemetries?sortKey=appName&sortDir=ASC&startTime=${startDate.toISOString()}&endTime=${new Date().toISOString()}`,
+    );
+
+    for (const telemetry of telemetries) {
+      await iteratee(telemetry);
     }
   }
 }
