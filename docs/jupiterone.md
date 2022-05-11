@@ -16,7 +16,7 @@
 - Configure alerts to take action when JupiterOne graph changes, or leverage
   existing alerts.
 
-## Requirement
+## Requirements
 
 - Cisco Secure Application supports
   [Escher Authentication](http://escherauth.io/). You must have a Administrator
