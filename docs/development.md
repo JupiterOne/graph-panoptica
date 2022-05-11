@@ -1,28 +1,23 @@
 # Development
 
-Add details here to give a brief overview of how to work with the provider APIs.
-Please reference any SDKs or API docs used to help build the integration here.
-
-## Prerequisites
-
-Supply details about software or tooling (like maybe Docker or Terraform) that
-is needed for development here.
-
-Please supply references to documentation that details how to install those
-dependencies here.
-
-Tools like Node.js and NPM are already covered in the [README](../README.md) so
-don't bother documenting that here.
+This integration focuses on
+[Cisco Secure Application](https://securecn.cisco.com/) and is using
+[Secure Application Management API](https://securecn.cisco.com/api/swagger-ui.html)
+for interacting with the resources.
 
 ## Provider account setup
 
-Please provide information about the steps needed to create an account with a
-provider. Images and references to a provider's documentation is very helpful
-for new developers picking up your work.
+### In Cisco Secure Application
+
+[API & Secret keys](https://appsecurity.readme.io/docs/securecn-rest-api#api--secret-keys)
+
+1. Navigate to the System page, and then select MANAGE USERS.
+2. Click New User and then select Service User.
+3. Enter a name for the user. Leave the status as 'Active'.
+4. Click FINISH. Copy the values of Access Key and Secret Key, as they will be
+   used later.
 
 ## Authentication
 
-Supply details here for information on how to authenticate with a provider so
-that developers have an idea of what's needed to hit APIs. It may be useful to
-provide explanations for each value specified in the
-[`IntegrationInstanceConfigFieldMap`](../src/config.ts).
+Provide the `ACCESS_KEY`, and `SECRET_KEY` to the `.env`. You can use
+[`.env.example`](../.env.example) as a reference.
