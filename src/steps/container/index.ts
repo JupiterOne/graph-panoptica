@@ -9,7 +9,7 @@ import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
 import { getClusterKey } from '../cluster/converter';
 import { Steps, Entities, Relationships } from '../constants';
-import { createContainerEntity } from './converter';
+import { createContainerEntity, getContainerKey } from './converter';
 
 export async function fetchContainers({
   instance,
@@ -19,22 +19,28 @@ export async function fetchContainers({
 
   await apiClient.iterateTelemetries(async (telemetry) => {
     for (const container of telemetry.pod.containers) {
-      const containerEntity = await jobState.addEntity(
-        createContainerEntity(telemetry.pod.id, container),
+      let containerEntity = await jobState.findEntity(
+        getContainerKey(telemetry.pod.id, container.image.tag),
       );
+
+      if (!containerEntity)
+        containerEntity = await jobState.addEntity(
+          createContainerEntity(telemetry.pod.id, container),
+        );
 
       const clusterEntity = await jobState.findEntity(
         getClusterKey(telemetry.cluster.id),
       );
 
       if (clusterEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.HAS,
-            from: clusterEntity,
-            to: containerEntity,
-          }),
-        );
+        const relationship = createDirectRelationship({
+          _class: RelationshipClass.HAS,
+          from: clusterEntity,
+          to: containerEntity,
+        });
+
+        if (!jobState.hasKey(relationship._key))
+          await jobState.addRelationship(relationship);
       }
     }
   });
