@@ -12,7 +12,7 @@ export const accountSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Account',
-        _type: 'cisco_secure_application_account',
+        _type: 'panoptica_account',
         _class: ['Account'],
       },
     ],

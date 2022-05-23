@@ -3,16 +3,16 @@ import {
   Entity,
 } from '@jupiterone/integration-sdk-core';
 
-import { CiscoSecureApplicationContainer } from '../../types';
+import { PanopticaContainer } from '../../types';
 import { Entities } from '../constants';
 
 export function getContainerKey(podId: string, containerTag: string): string {
-  return `cisco_secure_application_container:${podId}:${containerTag}`;
+  return `panoptica_container:${podId}:${containerTag}`;
 }
 
 export function createContainerEntity(
   podId: string,
-  container: CiscoSecureApplicationContainer,
+  container: PanopticaContainer,
 ): Entity {
   return createIntegrationEntity({
     entityData: {

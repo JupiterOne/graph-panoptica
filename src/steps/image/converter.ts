@@ -4,15 +4,15 @@ import {
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 
-import { CiscoSecureApplicationImage } from '../../types';
+import { PanopticaImage } from '../../types';
 import { Entities } from '../constants';
 
-export function createImageEntity(image: CiscoSecureApplicationImage): Entity {
+export function createImageEntity(image: PanopticaImage): Entity {
   return createIntegrationEntity({
     entityData: {
       source: image,
       assign: {
-        _key: `cisco_secure_application_image:${image.id}`,
+        _key: `panoptica_image:${image.id}`,
         _type: Entities.IMAGE._type,
         _class: Entities.IMAGE._class,
         id: image.id,

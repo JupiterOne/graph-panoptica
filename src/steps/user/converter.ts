@@ -4,15 +4,15 @@ import {
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 
-import { CiscoSecureApplicationUser } from '../../types';
+import { PanopticaUser } from '../../types';
 import { Entities } from '../constants';
 
-export function createUserEntity(user: CiscoSecureApplicationUser): Entity {
+export function createUserEntity(user: PanopticaUser): Entity {
   return createIntegrationEntity({
     entityData: {
       source: user,
       assign: {
-        _key: `cisco_secure_application_user:${user.id}`,
+        _key: `panoptica_user:${user.id}`,
         _type: Entities.USER._type,
         _class: Entities.USER._class,
         id: user.id,

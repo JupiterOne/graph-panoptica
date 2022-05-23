@@ -1,4 +1,4 @@
-export type CiscoSecureApplicationAccount = {
+export type PanopticaAccount = {
   id: string;
   accountId: string;
   lastLogin: string;
@@ -22,7 +22,7 @@ export type CiscoSecureApplicationAccount = {
   };
 };
 
-export type CiscoSecureApplicationUser = {
+export type PanopticaUser = {
   id: string;
   accountId: string;
   lastLogin: string;
@@ -34,7 +34,7 @@ export type CiscoSecureApplicationUser = {
   email: string;
 };
 
-export type CiscoSecureApplicationCluster = {
+export type PanopticaCluster = {
   id: string;
   name: string;
   clusterPodDefinitionSource: string;
@@ -78,7 +78,7 @@ export type CiscoSecureApplicationCluster = {
   minimalNumberOfControllerReplicas: number;
 };
 
-export type CiscoSecureApplicationImage = {
+export type PanopticaImage = {
   id: string;
   imageName: string;
   imageTags: string[];
@@ -103,7 +103,7 @@ export type CiscoSecureApplicationImage = {
   };
 };
 
-export type CiscoSecureApplicationVulnerability = {
+export type PanopticaVulnerability = {
   id: string;
   name: string;
   description: string;
@@ -131,7 +131,7 @@ export type CiscoSecureApplicationVulnerability = {
   layerName: string;
 };
 
-export type CiscoSecureApplicationRisk = {
+export type PanopticaRisk = {
   id: string;
   time: string;
   total: number;
@@ -165,7 +165,7 @@ export type CiscoSecureApplicationRisk = {
   hasFailed: boolean;
 };
 
-export type CiscoSecureApplicationContainer = {
+export type PanopticaContainer = {
   image: {
     repository: string;
     tag: string;
@@ -175,7 +175,7 @@ export type CiscoSecureApplicationContainer = {
   };
 };
 
-export type CiscoSecureApplicationTelemetry = {
+export type PanopticaTelemetry = {
   pod: {
     id: string;
     name: string;
@@ -183,7 +183,7 @@ export type CiscoSecureApplicationTelemetry = {
       key: string;
       value: string;
     }[];
-    containers: CiscoSecureApplicationContainer[];
+    containers: PanopticaContainer[];
     initContainers: [
       {
         image: {

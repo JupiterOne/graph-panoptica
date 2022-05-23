@@ -12,7 +12,7 @@ export const riskSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Risk',
-        _type: 'cisco_secure_application_risk',
+        _type: 'panoptica_risk',
         _class: ['Risk'],
       },
     ],
@@ -30,10 +30,10 @@ export const riskSpec: StepSpec<IntegrationConfig>[] = [
     entities: [],
     relationships: [
       {
-        _type: 'cisco_secure_application_cluster_has_risk',
-        sourceType: 'cisco_secure_application_cluster',
+        _type: 'panoptica_cluster_has_risk',
+        sourceType: 'panoptica_cluster',
         _class: RelationshipClass.HAS,
-        targetType: 'cisco_secure_application_risk',
+        targetType: 'panoptica_risk',
       },
     ],
     dependsOn: ['fetch-clusters', 'fetch-risks'],

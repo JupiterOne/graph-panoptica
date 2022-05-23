@@ -4,15 +4,15 @@ import {
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 
-import { CiscoSecureApplicationRisk } from '../../types';
+import { PanopticaRisk } from '../../types';
 import { Entities } from '../constants';
 
-export function createRiskEntity(risk: CiscoSecureApplicationRisk): Entity {
+export function createRiskEntity(risk: PanopticaRisk): Entity {
   return createIntegrationEntity({
     entityData: {
       source: risk,
       assign: {
-        _key: `cisco_secure_application_risk:${risk.id}`,
+        _key: `panoptica_risk:${risk.id}`,
         _type: Entities.RISK._type,
         _class: Entities.RISK._class,
         id: risk.id,

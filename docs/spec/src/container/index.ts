@@ -12,16 +12,16 @@ export const containerSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Container',
-        _type: 'cisco_secure_application_container',
+        _type: 'panoptica_container',
         _class: ['Container'],
       },
     ],
     relationships: [
       {
-        _type: 'cisco_secure_application_cluster_has_container',
-        sourceType: 'cisco_secure_application_cluster',
+        _type: 'panoptica_cluster_has_container',
+        sourceType: 'panoptica_cluster',
         _class: RelationshipClass.HAS,
-        targetType: 'cisco_secure_application_container',
+        targetType: 'panoptica_container',
       },
     ],
     dependsOn: ['fetch-clusters'],

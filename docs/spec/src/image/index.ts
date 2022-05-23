@@ -12,16 +12,16 @@ export const imageSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Image',
-        _type: 'cisco_secure_application_image',
+        _type: 'panoptica_image',
         _class: ['Image'],
       },
     ],
     relationships: [
       {
-        _type: 'cisco_secure_application_account_has_image',
-        sourceType: 'cisco_secure_application_account',
+        _type: 'panoptica_account_has_image',
+        sourceType: 'panoptica_account',
         _class: RelationshipClass.HAS,
-        targetType: 'cisco_secure_application_image',
+        targetType: 'panoptica_image',
       },
     ],
     dependsOn: ['fetch-account'],

@@ -3,16 +3,14 @@ import {
   Entity,
 } from '@jupiterone/integration-sdk-core';
 
-import { CiscoSecureApplicationCluster } from '../../types';
+import { PanopticaCluster } from '../../types';
 import { Entities } from '../constants';
 
 export function getClusterKey(id: string): string {
-  return `cisco_secure_application_cluster:${id}`;
+  return `panoptica_cluster:${id}`;
 }
 
-export function createClusterEntity(
-  cluster: CiscoSecureApplicationCluster,
-): Entity {
+export function createClusterEntity(cluster: PanopticaCluster): Entity {
   return createIntegrationEntity({
     entityData: {
       source: cluster,
