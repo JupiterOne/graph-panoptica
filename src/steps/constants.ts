@@ -29,42 +29,42 @@ export const Entities: Record<
 > = {
   ACCOUNT: {
     resourceName: 'Account',
-    _type: 'cisco_secure_application_account',
+    _type: 'panoptica_account',
     _class: ['Account'],
   },
   CLUSTER: {
     resourceName: 'Cluster',
-    _type: 'cisco_secure_application_cluster',
+    _type: 'panoptica_cluster',
     _class: ['Cluster'],
   },
   IMAGE: {
     resourceName: 'Image',
-    _type: 'cisco_secure_application_image',
+    _type: 'panoptica_image',
     _class: ['Image'],
   },
   USER: {
     resourceName: 'User',
-    _type: 'cisco_secure_application_user',
+    _type: 'panoptica_user',
     _class: ['User'],
   },
   VULNERABILITY: {
     resourceName: 'Vulnerability',
-    _type: 'cisco_secure_application_vulnerability',
+    _type: 'panoptica_vulnerability',
     _class: ['Vulnerability'],
   },
   RISK: {
     resourceName: 'Risk',
-    _type: 'cisco_secure_application_risk',
+    _type: 'panoptica_risk',
     _class: ['Risk'],
   },
   'CLOUD-ACCOUNT': {
     resourceName: 'Cloud Account',
-    _type: 'cisco_secure_application_cloud_account',
+    _type: 'panoptica_cloud_account',
     _class: ['Service'],
   },
   CONTAINER: {
     resourceName: 'Container',
-    _type: 'cisco_secure_application_container',
+    _type: 'panoptica_container',
     _class: ['Container'],
   },
 };
@@ -80,43 +80,43 @@ export const Relationships: Record<
   StepRelationshipMetadata
 > = {
   ACCOUNT_HAS_USER: {
-    _type: 'cisco_secure_application_account_has_user',
+    _type: 'panoptica_account_has_user',
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.USER._type,
   },
   ACCOUNT_HAS_CLUSTER: {
-    _type: 'cisco_secure_application_account_has_cluster',
+    _type: 'panoptica_account_has_cluster',
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.CLUSTER._type,
   },
   ACCOUNT_HAS_IMAGE: {
-    _type: 'cisco_secure_application_account_has_image',
+    _type: 'panoptica_account_has_image',
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.IMAGE._type,
   },
   IMAGE_HAS_VULNERABILITY: {
-    _type: 'cisco_secure_application_image_has_vulnerability',
+    _type: 'panoptica_image_has_vulnerability',
     sourceType: Entities.IMAGE._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.VULNERABILITY._type,
   },
   CLUSTER_HAS_RISK: {
-    _type: 'cisco_secure_application_cluster_has_risk',
+    _type: 'panoptica_cluster_has_risk',
     sourceType: Entities.CLUSTER._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.RISK._type,
   },
   CLUSTER_HAS_CONTAINER: {
-    _type: 'cisco_secure_application_cluster_has_container',
+    _type: 'panoptica_cluster_has_container',
     sourceType: Entities.CLUSTER._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.CONTAINER._type,
   },
   ACCOUNT_HAS_CLOUD_ACCOUNT: {
-    _type: 'cisco_secure_application_account_has_cloud_account',
+    _type: 'panoptica_account_has_cloud_account',
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
     targetType: Entities['CLOUD-ACCOUNT']._type,

@@ -12,16 +12,16 @@ export const clusterSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Cluster',
-        _type: 'cisco_secure_application_cluster',
+        _type: 'panoptica_cluster',
         _class: ['Cluster'],
       },
     ],
     relationships: [
       {
-        _type: 'cisco_secure_application_account_has_cluster',
-        sourceType: 'cisco_secure_application_account',
+        _type: 'panoptica_account_has_cluster',
+        sourceType: 'panoptica_account',
         _class: RelationshipClass.HAS,
-        targetType: 'cisco_secure_application_cluster',
+        targetType: 'panoptica_cluster',
       },
     ],
     dependsOn: ['fetch-account'],

@@ -12,16 +12,16 @@ export const userSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'User',
-        _type: 'cisco_secure_application_user',
+        _type: 'panoptica_user',
         _class: ['User'],
       },
     ],
     relationships: [
       {
-        _type: 'cisco_secure_application_account_has_user',
-        sourceType: 'cisco_secure_application_account',
+        _type: 'panoptica_account_has_user',
+        sourceType: 'panoptica_account',
         _class: RelationshipClass.HAS,
-        targetType: 'cisco_secure_application_user',
+        targetType: 'panoptica_user',
       },
     ],
     dependsOn: ['fetch-account'],

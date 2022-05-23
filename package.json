@@ -1,7 +1,7 @@
 {
-  "name": "@jupiterone/graph-cisco-secure-application",
+  "name": "@jupiterone/graph-panoptica",
   "version": "1.0.0",
-  "description": "A JupiterOne Integration for ingesting data of the Cisco Secure Application",
+  "description": "A JupiterOne Integration for ingesting data of the Panoptica",
   "license": "MPL-2.0",
   "main": "src/index.js",
   "types": "src/index.d.ts",

@@ -1,13 +1,12 @@
 # Development
 
-This integration focuses on
-[Cisco Secure Application](https://securecn.cisco.com/) and is using
+This integration focuses on [Panoptica](https://panoptica.app) and is using
 [Secure Application Management API](https://securecn.cisco.com/api/swagger-ui.html)
 for interacting with the resources.
 
 ## Provider account setup
 
-### In Cisco Secure Application
+### In Panoptica
 
 [API & Secret keys](https://appsecurity.readme.io/docs/securecn-rest-api#api--secret-keys)
 

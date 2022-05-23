@@ -3,17 +3,15 @@ import {
   Entity,
 } from '@jupiterone/integration-sdk-core';
 
-import { CiscoSecureApplicationAccount } from '../../types';
+import { PanopticaAccount } from '../../types';
 import { Entities } from '../constants';
 
-export function createAccountEntity(
-  account: CiscoSecureApplicationAccount,
-): Entity {
+export function createAccountEntity(account: PanopticaAccount): Entity {
   return createIntegrationEntity({
     entityData: {
       source: account,
       assign: {
-        _key: `cisco_secure_application_account:${account.id}`,
+        _key: `panoptica_account:${account.id}`,
         _type: Entities.ACCOUNT._type,
         _class: Entities.ACCOUNT._class,
         name: account.fullName,

@@ -17,17 +17,17 @@ and this project adheres to
 ### Added
 
 - Ingest new entities
-  - `cisco_secure_application_account`
-  - `cisco_secure_application_cluster`
-  - `cisco_secure_application_container`
-  - `cisco_secure_application_image`
-  - `cisco_secure_application_risk`
-  - `cisco_secure_application_user`
-  - `cisco_secure_application_vulnerability`
+  - `panoptica_account`
+  - `panoptica_cluster`
+  - `panoptica_container`
+  - `panoptica_image`
+  - `panoptica_risk`
+  - `panoptica_user`
+  - `panoptica_vulnerability`
 - Build new relationships
-  - `cisco_secure_application_account_has_cluster`
-  - `cisco_secure_application_account_has_image`
-  - `cisco_secure_application_account_has_user`
-  - `cisco_secure_application_cluster_has_container`
-  - `cisco_secure_application_cluster_has_risk`
-  - `cisco_secure_application_image_has_vulnerability`
+  - `panoptica_account_has_cluster`
+  - `panoptica_account_has_image`
+  - `panoptica_account_has_user`
+  - `panoptica_cluster_has_container`
+  - `panoptica_cluster_has_risk`
+  - `panoptica_image_has_vulnerability`

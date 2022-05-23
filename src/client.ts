@@ -8,13 +8,13 @@ import { retry } from '@lifeomic/attempt';
 
 import { IntegrationConfig } from './config';
 import {
-  CiscoSecureApplicationAccount,
-  CiscoSecureApplicationCluster,
-  CiscoSecureApplicationImage,
-  CiscoSecureApplicationRisk,
-  CiscoSecureApplicationTelemetry,
-  CiscoSecureApplicationUser,
-  CiscoSecureApplicationVulnerability,
+  PanopticaAccount,
+  PanopticaCluster,
+  PanopticaImage,
+  PanopticaRisk,
+  PanopticaTelemetry,
+  PanopticaUser,
+  PanopticaVulnerability,
 } from './types';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
@@ -105,12 +105,12 @@ export class APIClient {
     }
   }
 
-  public async getCurrentUser(): Promise<CiscoSecureApplicationAccount> {
+  public async getCurrentUser(): Promise<PanopticaAccount> {
     return this.request('me');
   }
 
   public async iterateUsers(
-    iteratee: ResourceIteratee<CiscoSecureApplicationUser>,
+    iteratee: ResourceIteratee<PanopticaUser>,
   ): Promise<void> {
     const users = await this.request('users');
 
@@ -120,7 +120,7 @@ export class APIClient {
   }
 
   public async iterateClusters(
-    iteratee: ResourceIteratee<CiscoSecureApplicationCluster>,
+    iteratee: ResourceIteratee<PanopticaCluster>,
   ): Promise<void> {
     const clusters = await this.request('kubernetesClusters');
 
@@ -130,7 +130,7 @@ export class APIClient {
   }
 
   public async iterateImages(
-    iteratee: ResourceIteratee<CiscoSecureApplicationImage>,
+    iteratee: ResourceIteratee<PanopticaImage>,
   ): Promise<void> {
     const images = await this.request('images');
 
@@ -141,7 +141,7 @@ export class APIClient {
 
   public async iterateVulnerabilities(
     imageId: string,
-    iteratee: ResourceIteratee<CiscoSecureApplicationVulnerability>,
+    iteratee: ResourceIteratee<PanopticaVulnerability>,
   ): Promise<void> {
     const vulnerabilities = await this.request(
       `images/${imageId}/vulnerabilities`,
@@ -153,7 +153,7 @@ export class APIClient {
   }
 
   public async iterateRisks(
-    iteratee: ResourceIteratee<CiscoSecureApplicationRisk>,
+    iteratee: ResourceIteratee<PanopticaRisk>,
   ): Promise<void> {
     const risks = await this.request('riskAssessment');
 
@@ -163,12 +163,12 @@ export class APIClient {
   }
 
   public async iterateTelemetries(
-    iteratee: ResourceIteratee<CiscoSecureApplicationTelemetry>,
+    iteratee: ResourceIteratee<PanopticaTelemetry>,
   ): Promise<void> {
     const startDate = new Date();
     startDate.setFullYear(startDate.getFullYear() - 1);
 
-    const telemetries: CiscoSecureApplicationTelemetry[] = await this.request(
+    const telemetries: PanopticaTelemetry[] = await this.request(
       `appTelemetries?sortKey=appName&sortDir=ASC&startTime=${startDate.toISOString()}&endTime=${new Date().toISOString()}`,
     );
 
