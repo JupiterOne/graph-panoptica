@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.0.1 - 2022-05-23
+
 ### Fixed
 
 - Fixed duplicate key issues for step `fetch-containers`
