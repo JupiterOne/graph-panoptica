@@ -1,15 +1,45 @@
 ---
-sourceId: managed:template
+sourceId: managed:panoptica
 integrationDefinitionId: '${integration_definition_id}'
-questions: []
-  # - id: integration-question-template-replace-me
-  #   title: What kinds of questions will this integration support?
-  #   description:
-  #     TODO Every integration should contribute questions! Please be carefule
-  #     to replace this before deploying the integration to JupiterOne.
-  #   queries:
-  #     - name: good
-  #       query: |
-  #         find * with _integrationDefinitionId = '${integration_definition_id}'
-  #   tags:
-  #     - template
+questions: 
+- id: managed-question-panoptica-Kubernetes-image-vulnerabilities-with-no-fix
+  title: Which Panoptica Kubernetes image vulnerabilites cannot be fixed?
+  description: Returns a list of Panoptica Kubernetes vulnerabilities that cannot be fixed.
+  queries:
+     - name: Panoptica Kubernetes vulnerabilites
+       resultsAre: BAD
+       query: |
+          FIND panoptica_image WITH displayName ~= "k8" 
+            THAT HAS panoptica_vulnerability WITH vulnerabilitySourcesFixAvailability ~= "NO_FIX"
+  tags:
+     - panoptica
+     - devops
+     - kubernetes
+
+- id: managed-question-panoptica-vulnerabilities-that-have-cvss-user-interactions-required-with-no-fix
+  title: Which Panoptica cvss-user-interactions vulnerabilites cannot be fixed?
+  description: Returns a list of Panoptica cvss-user-interaction vulnerabilities that cannot be fixed.
+  queries:
+     - name: Panoptica CVSS User Interaction vulnerabilites
+       resultsAre: BAD
+       query: |
+          FIND panoptica_vulnerability WITH cvssUserInteraction = "REQUIRED" 
+            AND layerName ~= "RUN" AND severity = "HIGH" AND vulnerabilitySourcesFixAvailability ~= "NO_FIX"
+  tags:
+     - panoptica
+     - devops
+
+- id: managed-question-panoptica-active-admin-users-cluster-and-node-usage
+  title: Which Panoptica active admins cluster and node usage numbers? 
+  description: Returns a list of Panoptica active admin users cluster and node usage counts.
+  queries:
+     - name: Panoptica admin users cluster and node numbers
+       resultsAre: INFORMATIVE
+       query: |
+          FIND panoptica_user WITH role ~= "ADMIN" AND active = true AS user
+            THAT HAS panoptica_account AS acct
+          RETURN
+            user.username AS "UserName",acct.usageStatusCurrentClustersUsage AS "Cluster Usage", acct.usageStatusCurrentNodesUsage AS "Node Usage"
+  tags:
+     - panoptica
+     - devops
