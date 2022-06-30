@@ -3,10 +3,10 @@ sourceId: managed:panoptica
 integrationDefinitionId: '${integration_definition_id}'
 questions: 
 - id: managed-question-panoptica-Kubernetes-image-vulnerabilities-with-no-fix
-  title: Which Panoptica Kubernetes image vulnerabilites cannot be fixed?
+  title: Which Panoptica Kubernetes image vulnerabilities cannot be fixed?
   description: Returns a list of Panoptica Kubernetes vulnerabilities that cannot be fixed.
   queries:
-     - name: Panoptica Kubernetes vulnerabilites
+     - name: Panoptica Kubernetes vulnerabilities
        resultsAre: BAD
        query: |
           FIND panoptica_image WITH displayName ~= "k8" 
@@ -17,10 +17,10 @@ questions:
      - kubernetes
 
 - id: managed-question-panoptica-vulnerabilities-that-have-cvss-user-interactions-required-with-no-fix
-  title: Which Panoptica cvss-user-interactions vulnerabilites cannot be fixed?
+  title: Which Panoptica cvss-user-interactions vulnerabilities cannot be fixed?
   description: Returns a list of Panoptica cvss-user-interaction vulnerabilities that cannot be fixed.
   queries:
-     - name: Panoptica CVSS User Interaction vulnerabilites
+     - name: Panoptica CVSS User Interaction vulnerabilities
        resultsAre: BAD
        query: |
           FIND panoptica_vulnerability WITH cvssUserInteraction = "REQUIRED" 
