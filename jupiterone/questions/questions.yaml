@@ -2,11 +2,11 @@
 sourceId: managed:panoptica
 integrationDefinitionId: '${integration_definition_id}'
 questions: 
-- id: managed-question-panoptica-Kubernetes-image-vulnerabilities-with-no-fix
+- id: managed-question-panoptica-kubernetes-image-vulnerabilities-with-no-fix
   title: Which Panoptica Kubernetes image vulnerabilities cannot be fixed?
-  description: Returns a list of Panoptica Kubernetes vulnerabilities that cannot be fixed.
+  description: Returns a list of Panoptica Kubernetes image vulnerabilities that cannot be fixed.
   queries:
-     - name: Panoptica Kubernetes vulnerabilities
+     - name: Panoptica Kubernetes image vulnerabilities
        resultsAre: BAD
        query: |
           FIND panoptica_image WITH displayName ~= "k8" 
@@ -17,7 +17,7 @@ questions:
      - kubernetes
 
 - id: managed-question-panoptica-vulnerabilities-that-have-cvss-user-interactions-required-with-no-fix
-  title: Which Panoptica cvss-user-interactions vulnerabilities cannot be fixed?
+  title: Which Panoptica cvss-user-interaction vulnerabilities cannot be fixed?
   description: Returns a list of Panoptica cvss-user-interaction vulnerabilities that cannot be fixed.
   queries:
      - name: Panoptica CVSS User Interaction vulnerabilities
@@ -29,14 +29,14 @@ questions:
      - panoptica
      - devops
 
-- id: managed-question-panoptica-active-admin-users-cluster-and-node-usage
-  title: Which Panoptica active admins cluster and node usage numbers? 
-  description: Returns a list of Panoptica active admin users cluster and node usage counts.
+- id: managed-question-panoptica-active-user-cluster-and-node-usage-counts
+  title: What are the Panoptica cluster and node usage counts by username? 
+  description: Returns a list of Panoptica cluster and node usage counts by username
   queries:
-     - name: Panoptica admin users cluster and node numbers
+     - name: Panoptica cluster and node numbers by username
        resultsAre: INFORMATIVE
        query: |
-          FIND panoptica_user WITH role ~= "ADMIN" AND active = true AS user
+          FIND panoptica_user WITH active = true AS user
             THAT HAS panoptica_account AS acct
           RETURN
             user.username AS "UserName",acct.usageStatusCurrentClustersUsage AS "Cluster Usage", acct.usageStatusCurrentNodesUsage AS "Node Usage"
