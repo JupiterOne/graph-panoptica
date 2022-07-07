@@ -1,6 +1,7 @@
 # Development
 
-This integration focuses on [Cisco Panoptica](https://panoptica.app) and is using
+This integration focuses on [Cisco Panoptica](https://panoptica.app) and is
+using
 [Secure Application Management API](https://securecn.cisco.com/api/swagger-ui.html)
 for interacting with the resources.
 

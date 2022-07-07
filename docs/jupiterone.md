@@ -2,8 +2,8 @@
 
 ## Cisco Panoptica + JupiterOne Integration Benefits
 
-- Visualize your Cisco Panoptica account, clusters, containers, images, risks, users, and
-  vulnerabilities in the JupiterOne graph.
+- Visualize your Cisco Panoptica account, clusters, containers, images, risks,
+  users, and vulnerabilities in the JupiterOne graph.
 - Map Cicso Panoptica users to employees in your JupiterOne account.
 - Monitor changes to Cisco Panoptica users using JupiterOne alerts.
 
