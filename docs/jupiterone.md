@@ -1,11 +1,11 @@
-# Panoptica Integration with JupiterOne
+# Cisco Panoptica Integration with JupiterOne
 
-## Panoptica + JupiterOne Integration Benefits
+## Cisco Panoptica + JupiterOne Integration Benefits
 
-- Visualize Panoptica account, clusters, containers, images, risks, users, and
+- Visualize your Cisco Panoptica account, clusters, containers, images, risks, users, and
   vulnerabilities in the JupiterOne graph.
-- Map Panoptica users to employees in your JupiterOne account.
-- Monitor changes to Panoptica users using JupiterOne alerts.
+- Map Cicso Panoptica users to employees in your JupiterOne account.
+- Monitor changes to Cisco Panoptica users using JupiterOne alerts.
 
 ## How it Works
 
@@ -32,7 +32,7 @@ If you need help with this integration, please contact
 
 ## Integration Walkthrough
 
-### In Panoptica
+### In Cisco Panoptica
 
 [API & Secret keys](https://appsecurity.readme.io/docs/securecn-rest-api#api--secret-keys)
 
@@ -45,7 +45,7 @@ If you need help with this integration, please contact
 ### In JupiterOne
 
 1. From the configuration **Gear Icon**, select **Integrations**.
-2. Scroll to the **Panoptica** integration tile and click it.
+2. Scroll to the **Cisco Panoptica** integration tile and click it.
 3. Click the **Add Configuration** button and configure the following settings:
 
 - Enter the **Account Name** by which you'd like to identify this Panoptica
@@ -62,7 +62,7 @@ If you need help with this integration, please contact
 # How to Uninstall
 
 1. From the configuration **Gear Icon**, select **Integrations**.
-2. Scroll to the **Panoptica** integration tile and click it.
+2. Scroll to the **Cisco Panoptica** integration tile and click it.
 3. Identify and click the **integration to delete**.
 4. Click the **trash can** icon.
 5. Click the **Remove** button to delete the integration.
