@@ -1,15 +1,45 @@
 ---
-sourceId: managed:template
+sourceId: managed:panoptica
 integrationDefinitionId: '${integration_definition_id}'
-questions: []
-  # - id: integration-question-template-replace-me
-  #   title: What kinds of questions will this integration support?
-  #   description:
-  #     TODO Every integration should contribute questions! Please be carefule
-  #     to replace this before deploying the integration to JupiterOne.
-  #   queries:
-  #     - name: good
-  #       query: |
-  #         find * with _integrationDefinitionId = '${integration_definition_id}'
-  #   tags:
-  #     - template
+questions: 
+- id: managed-question-panoptica-kubernetes-image-vulnerabilities-with-no-fix
+  title: Which Panoptica Kubernetes image vulnerabilities cannot be fixed?
+  description: Returns a list of Panoptica Kubernetes image vulnerabilities that cannot be fixed.
+  queries:
+     - name: Panoptica Kubernetes image vulnerabilities
+       resultsAre: BAD
+       query: |
+          FIND panoptica_image WITH displayName ~= "k8" 
+            THAT HAS panoptica_vulnerability WITH vulnerabilitySourcesFixAvailability ~= "NO_FIX"
+  tags:
+     - panoptica
+     - devops
+     - kubernetes
+
+- id: managed-question-panoptica-vulnerabilities-that-have-cvss-user-interactions-required-with-no-fix
+  title: Which Panoptica cvss-user-interaction vulnerabilities cannot be fixed?
+  description: Returns a list of Panoptica cvss-user-interaction vulnerabilities that cannot be fixed.
+  queries:
+     - name: Panoptica CVSS User Interaction vulnerabilities
+       resultsAre: BAD
+       query: |
+          FIND panoptica_vulnerability WITH cvssUserInteraction = "REQUIRED" 
+            AND layerName ~= "RUN" AND severity = "HIGH" AND vulnerabilitySourcesFixAvailability ~= "NO_FIX"
+  tags:
+     - panoptica
+     - devops
+
+- id: managed-question-panoptica-active-user-cluster-and-node-usage-counts
+  title: What are the Panoptica cluster and node usage counts by username? 
+  description: Returns a list of Panoptica cluster and node usage counts by username
+  queries:
+     - name: Panoptica cluster and node numbers by username
+       resultsAre: INFORMATIVE
+       query: |
+          FIND panoptica_user WITH active = true AS user
+            THAT HAS panoptica_account AS acct
+          RETURN
+            user.username AS "UserName",acct.usageStatusCurrentClustersUsage AS "Cluster Usage", acct.usageStatusCurrentNodesUsage AS "Node Usage"
+  tags:
+     - panoptica
+     - devops
