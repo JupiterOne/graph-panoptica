@@ -22,7 +22,7 @@ describe('#validateInvocation', () => {
     });
 
     await expect(validateInvocation(executionContext)).rejects.toThrow(
-      'Config requires all of {email, accessKey, secretKey}',
+      'Config requires all of {accessKey, secretKey}',
     );
   });
 
