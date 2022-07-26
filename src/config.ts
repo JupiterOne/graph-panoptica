@@ -21,9 +21,6 @@ import { createAPIClient } from './client';
  * `instance.config` in a UI.
  */
 export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
-  email: {
-    type: 'string',
-  },
   accessKey: {
     type: 'string',
   },
@@ -38,11 +35,6 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
  * same properties defined by `instanceConfigFields`.
  */
 export interface IntegrationConfig extends IntegrationInstanceConfig {
-  /**
-   * The provider Email address used to authenticate requests.
-   */
-  email: string;
-
   /**
    * The provider API access key used to authenticate requests.
    */
@@ -59,7 +51,7 @@ export async function validateInvocation(
 ) {
   const { config } = context.instance;
 
-  if (!config.email || !config.accessKey || !config.secretKey) {
+  if (!config.accessKey || !config.secretKey) {
     throw new IntegrationValidationError(
       'Config requires all of {email, accessKey, secretKey}',
     );

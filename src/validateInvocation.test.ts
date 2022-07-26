@@ -68,7 +68,6 @@ describe('#validateInvocation', () => {
 
         const executionContext = createMockExecutionContext({
           instanceConfig: {
-            email: integrationConfig.email,
             accessKey: 'INVALID',
             secretKey: integrationConfig.secretKey,
           },
@@ -92,7 +91,6 @@ describe('#validateInvocation', () => {
 
         const executionContext = createMockExecutionContext({
           instanceConfig: {
-            email: integrationConfig.email,
             accessKey: integrationConfig.accessKey,
             secretKey: 'INVALID',
           },
