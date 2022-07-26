@@ -22,7 +22,7 @@ describe('#validateInvocation', () => {
     });
 
     await expect(validateInvocation(executionContext)).rejects.toThrow(
-      'Config requires all of {email, accessKey, secretKey}',
+      'Config requires all of {accessKey, secretKey}',
     );
   });
 
@@ -68,7 +68,6 @@ describe('#validateInvocation', () => {
 
         const executionContext = createMockExecutionContext({
           instanceConfig: {
-            email: integrationConfig.email,
             accessKey: 'INVALID',
             secretKey: integrationConfig.secretKey,
           },
@@ -92,7 +91,6 @@ describe('#validateInvocation', () => {
 
         const executionContext = createMockExecutionContext({
           instanceConfig: {
-            email: integrationConfig.email,
             accessKey: integrationConfig.accessKey,
             secretKey: 'INVALID',
           },

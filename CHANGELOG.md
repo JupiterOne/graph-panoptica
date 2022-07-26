@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.1.1 - 2022-07-26
+
+- Remove `email` from required integration configuration values
+
 ## 1.1.0 - 2022-07-26
 
 ### Fixed

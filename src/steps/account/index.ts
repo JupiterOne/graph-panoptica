@@ -14,7 +14,7 @@ export async function fetchAccountDetails({
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const accountEntity = await jobState.addEntity(
-    createAccountEntity(instance.config.email),
+    createAccountEntity(instance.name),
   );
   await jobState.setData(ACCOUNT_ENTITY_KEY, accountEntity);
 }

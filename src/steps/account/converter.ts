@@ -5,18 +5,17 @@ import {
 
 import { Entities } from '../constants';
 
-export function createAccountEntity(email: string): Entity {
+export function createAccountEntity(accountName: string): Entity {
   return createIntegrationEntity({
     entityData: {
       source: {
-        email,
+        accountName,
       },
       assign: {
-        _key: `panoptica_account:${email}`,
+        _key: `panoptica_account:${accountName}`,
         _type: Entities.ACCOUNT._type,
         _class: Entities.ACCOUNT._class,
-        name: email,
-        email,
+        name: accountName,
       },
     },
   });
