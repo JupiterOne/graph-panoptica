@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Changed verify authentication endpoint from `/me` (known issue) to `/users`.
+- Changed `fetch-account` step to use the newly introduced ENV field `EMAIL`
+  instead of `/me` endpoint.
+
 ## 1.0.1 - 2022-05-23
 
 ### Fixed
