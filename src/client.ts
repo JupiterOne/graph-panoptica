@@ -8,7 +8,6 @@ import { retry } from '@lifeomic/attempt';
 
 import { IntegrationConfig } from './config';
 import {
-  PanopticaAccount,
   PanopticaCluster,
   PanopticaImage,
   PanopticaRisk,
@@ -35,6 +34,7 @@ export class APIClient {
     const date = new Date().toISOString().replace(/[^0-9a-zA-Z]+/g, '');
     return date.slice(0, 15) + date.slice(18);
   }
+
   private checkStatus = (response: Response) => {
     if (response.ok) {
       return response;
@@ -94,19 +94,15 @@ export class APIClient {
 
   public async verifyAuthentication(): Promise<void> {
     try {
-      await this.request('me');
+      await this.request('users');
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
-        endpoint: this.withBaseUri('me'),
+        endpoint: this.withBaseUri('users'),
         status: err.status,
         statusText: err.statusText,
       });
     }
-  }
-
-  public async getCurrentUser(): Promise<PanopticaAccount> {
-    return this.request('me');
   }
 
   public async iterateUsers(

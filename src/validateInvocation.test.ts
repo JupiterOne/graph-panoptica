@@ -2,6 +2,7 @@ import {
   createMockExecutionContext,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
+
 import { integrationConfig } from '../test/config';
 import { setupProjectRecording } from '../test/recording';
 import { IntegrationConfig, validateInvocation } from './config';
@@ -21,7 +22,7 @@ describe('#validateInvocation', () => {
     });
 
     await expect(validateInvocation(executionContext)).rejects.toThrow(
-      'Config requires all of {accessKey, secretKey}',
+      'Config requires all of {email, accessKey, secretKey}',
     );
   });
 
@@ -67,6 +68,7 @@ describe('#validateInvocation', () => {
 
         const executionContext = createMockExecutionContext({
           instanceConfig: {
+            email: integrationConfig.email,
             accessKey: 'INVALID',
             secretKey: integrationConfig.secretKey,
           },
@@ -75,7 +77,7 @@ describe('#validateInvocation', () => {
         // tests validate that invalid configurations throw an error
         // with an appropriate and expected message.
         await expect(validateInvocation(executionContext)).rejects.toThrow(
-          'Provider authentication failed at https://securecn.cisco.com/api/me: 401 Unauthorized',
+          'Provider authentication failed at https://securecn.cisco.com/api/users: 401 Unauthorized',
         );
       });
 
@@ -90,13 +92,14 @@ describe('#validateInvocation', () => {
 
         const executionContext = createMockExecutionContext({
           instanceConfig: {
+            email: integrationConfig.email,
             accessKey: integrationConfig.accessKey,
             secretKey: 'INVALID',
           },
         });
 
         await expect(validateInvocation(executionContext)).rejects.toThrow(
-          'Provider authentication failed at https://securecn.cisco.com/api/me: 401 Unauthorized',
+          'Provider authentication failed at https://securecn.cisco.com/api/users: 401 Unauthorized',
         );
       });
     });

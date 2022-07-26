@@ -2,6 +2,7 @@ import { IntegrationInvocationConfig } from '@jupiterone/integration-sdk-core';
 import { StepTestConfig } from '@jupiterone/integration-sdk-testing';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+
 import { invocationConfig } from '../src';
 import { IntegrationConfig } from '../src/config';
 
@@ -10,10 +11,12 @@ if (process.env.LOAD_ENV) {
     path: path.join(__dirname, '../.env'),
   });
 }
+const DEFAULT_EMAIL = 'name@dummy-acme';
 const DEFAULT_ACCESS_KEY = 'dummy-acme-client-id';
 const DEFAULT_SECRET_KEY = 'dummy-acme-client-secret';
 
 export const integrationConfig: IntegrationConfig = {
+  email: process.env.EMAIL || DEFAULT_EMAIL,
   accessKey: process.env.ACCESS_KEY || DEFAULT_ACCESS_KEY,
   secretKey: process.env.SECRET_KEY || DEFAULT_SECRET_KEY,
 };

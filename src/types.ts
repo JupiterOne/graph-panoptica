@@ -1,27 +1,3 @@
-export type PanopticaAccount = {
-  id: string;
-  accountId: string;
-  lastLogin: string;
-  fullName: string;
-  description?: string;
-  status: string;
-  role: string;
-  email?: string;
-  shouldDisplayEula: boolean;
-  shouldDisplayProductTour: boolean;
-  permissionsMode: string;
-  accountTier: string;
-  pricingUnitType: string;
-  apiSecurity: string;
-  serverlessSecurity: string;
-  usageStatus: {
-    currentNodesUsage: number;
-    maxNodes: number;
-    currentClustersUsage: number;
-    maxClusters: number;
-  };
-};
-
 export type PanopticaUser = {
   id: string;
   accountId: string;
