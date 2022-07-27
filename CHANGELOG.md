@@ -8,7 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.1.2 - 2022-07-27
+
+### Fixed
+
+- Handle potentially `undefined` properties on Panoptica clusters
+
 ## 1.1.1 - 2022-07-26
+
+### Fixed
 
 - Remove `email` from required integration configuration values
 

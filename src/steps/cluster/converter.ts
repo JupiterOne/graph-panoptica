@@ -27,8 +27,8 @@ export function createClusterEntity(cluster: PanopticaCluster): Entity {
         isPersistent: cluster.isPersistent,
         isMultiCluster: cluster.isMultiCluster,
         enableConnectionsControl: cluster.enableConnectionsControl,
-        proxyConfigurationEnableProxy: cluster.proxyConfiguration.enableProxy,
-        proxyConfigurationHttpsProxy: cluster.proxyConfiguration.httpsProxy,
+        proxyConfigurationEnableProxy: cluster.proxyConfiguration?.enableProxy,
+        proxyConfigurationHttpsProxy: cluster.proxyConfiguration?.httpsProxy,
         agentFailClose: cluster.agentFailClose,
         serviceDiscoveryIsolationEnabled:
           cluster.serviceDiscoveryIsolationEnabled,
@@ -41,19 +41,19 @@ export function createClusterEntity(cluster: PanopticaCluster): Entity {
         autoLabelEnabled: cluster.autoLabelEnabled,
         tlsInspectionEnabled: cluster.tlsInspectionEnabled,
         tracingSupportSettingsInstallTracingSupport:
-          cluster.tracingSupportSettings.installTracingSupport,
+          cluster.tracingSupportSettings?.installTracingSupport,
         tracingSupportSettingsTraceAnalyzerEnabled:
-          cluster.tracingSupportSettings.traceAnalyzerEnabled,
+          cluster.tracingSupportSettings?.traceAnalyzerEnabled,
         tracingSupportSettingsSpecReconstructorEnabled:
-          cluster.tracingSupportSettings.specReconstructorEnabled,
+          cluster.tracingSupportSettings?.specReconstructorEnabled,
         istioInstallationParametersIsIstioAlreadyInstalled:
-          cluster.istioInstallationParameters.isIstioAlreadyInstalled,
+          cluster.istioInstallationParameters?.isIstioAlreadyInstalled,
         istioInstallationParametersIstioVersion:
-          cluster.istioInstallationParameters.istioVersion,
+          cluster.istioInstallationParameters?.istioVersion,
         internalRegistryParametersInternalRegistryEnabled:
-          cluster.internalRegistryParameters.internalRegistryEnabled,
-        externalCaId: cluster.externalCa.id || undefined,
-        externalCaName: cluster.externalCa.name || undefined,
+          cluster.internalRegistryParameters?.internalRegistryEnabled,
+        externalCaId: cluster.externalCa?.id || undefined,
+        externalCaName: cluster.externalCa?.name || undefined,
         apiIntelligenceDAST: cluster.apiIntelligenceDAST,
         autoUpdateEnabled: cluster.autoUpdateEnabled,
         orchestrationType: cluster.orchestrationType,
