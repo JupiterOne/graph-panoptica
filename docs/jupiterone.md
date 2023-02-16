@@ -48,7 +48,7 @@ If you need help with this integration, please contact
 2. Scroll to the **Cisco Panoptica** integration tile and click it.
 3. Click the **Add Configuration** button and configure the following settings:
 
-- Enter the **Account Name** by which you'd like to identify this Panoptica
+- Enter the **Account Name** by which you would like to identify this Panoptica
   account in JupiterOne. Ingested entities will have this value stored in
   `tag.AccountName` when **Tag with Account Name** is checked.
 - Enter a **Description** that will further assist your team when identifying
